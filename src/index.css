@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #05080B;
+  color: #E7EEF2;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible keyboard focus ring across the whole app — accessibility requirement */
+:focus-visible {
+  outline: 2px solid #9BE564;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Reusable "glass" panel look used throughout the workspace */
+.glass-panel {
+  background: linear-gradient(180deg, rgba(17, 26, 35, 0.7), rgba(11, 18, 26, 0.7));
+  border: 1px solid rgba(154, 178, 191, 0.14);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+}
+
+.grid-texture {
+  background-image:
+    linear-gradient(rgba(154,178,191,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154,178,191,0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Thin custom scrollbar so long panels feel intentional, not default-browser */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(154, 178, 191, 0.2);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(154, 178, 191, 0.34);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
