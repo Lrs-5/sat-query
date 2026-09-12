@@ -7,41 +7,63 @@ import AnalysisPanel from './AnalysisPanel.jsx'
 import EvidencePanel from './EvidencePanel.jsx'
 import ExecutionTrace from './ExecutionTrace.jsx'
 
-// The ONE reusable analysis workspace. It is deliberately generic: it
-// renders whatever `result` (task, answer, evidence) the state holds,
-// so adding change-detection or SAR fusion later means teaching the
-// viewer/evidence panel a new evidence `type` — not building a new page.
+// Main reusable analysis workspace.
+// Desktop uses a compact single-screen dashboard layout.
+// Mobile keeps the normal vertical flow for usability.
 export default function Workspace() {
   return (
-    <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 lg:py-8">
-      <div className="mb-6">
-        <p className="font-mono text-xs tracking-wider text-cyan">SATQUERY AI / MVP</p>
-        <h1 className="font-display text-2xl font-semibold text-ink-primary sm:text-3xl">
+    <div className="mx-auto h-auto max-w-[1600px] px-4 py-4 sm:px-6 lg:h-[calc(100vh-80px)] lg:overflow-hidden lg:px-6 lg:py-4">
+
+      {/* Header */}
+      <div className="mb-3 shrink-0">
+        <p className="font-mono text-[10px] tracking-wider text-cyan">
+          SATQUERY AI / MVP
+        </p>
+
+        <h1 className="font-display text-xl font-semibold leading-tight text-ink-primary sm:text-2xl">
           Geospatial intelligence through natural language.
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_1fr]">
-        {/* Sidebar */}
-        <aside className="flex flex-col gap-7 lg:sticky lg:top-24 lg:self-start">
+      {/* Desktop dashboard */}
+      <div className="lg:grid lg:h-[calc(100%-58px)] lg:grid-cols-[250px_minmax(0,1fr)_330px] lg:gap-4">
+
+        {/* LEFT SIDEBAR */}
+        <aside className="mb-6 flex flex-col gap-4 lg:mb-0 lg:min-h-0 lg:overflow-y-auto lg:pr-1">
           <MissionControl />
           <DataSource />
           <Capabilities />
         </aside>
 
-        {/* Main analysis column */}
-        <div className="flex flex-col gap-7">
-          <ImageViewer />
-          <QueryBox />
+        {/* CENTER - IMAGE */}
+        <main className="flex min-w-0 flex-col gap-3 lg:min-h-0">
 
-          <div className="grid grid-cols-1 gap-7 xl:grid-cols-2">
-            <AnalysisPanel />
-            <EvidencePanel />
+          {/* Image viewer */}
+          <div className="min-h-0 flex-1">
+            <ImageViewer />
           </div>
 
-          <ExecutionTrace />
-        </div>
+          {/* Query */}
+          <QueryBox />
+
+        </main>
+
+        {/* RIGHT SIDEBAR */}
+        <aside className="flex min-w-0 flex-col gap-4 lg:min-h-0 lg:overflow-y-auto lg:pl-1">
+
+          <AnalysisPanel />
+
+          <EvidencePanel />
+
+        </aside>
       </div>
+
+      {/* Execution trace */}
+      <div className="mt-3 lg:max-h-[105px] lg:overflow-y-auto">
+        <ExecutionTrace />
+      </div>
+
     </div>
   )
 }
+

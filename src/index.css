@@ -9,7 +9,6 @@
 html, body, #root {
   height: 100%;
 }
-
 body {
   margin: 0;
   background-color: #05080B;
@@ -17,6 +16,15 @@ body {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Desktop workspace is designed as a single-screen dashboard */
+@media (min-width: 1024px) {
+  html,
+  body,
+  #root {
+    overflow: hidden;
+  }
 }
 
 /* Visible keyboard focus ring across the whole app — accessibility requirement */
