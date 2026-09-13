@@ -41,6 +41,9 @@ export const useAppStore = create((set, get) => ({
       kind: isPreviewable ? 'image' : 'raster-fallback',
       // Later, the backend can hand us `previewUrl` instead of an object URL.
       url: isPreviewable ? URL.createObjectURL(file) : null,
+      // The real browser File object — needed by runAnalysis() to actually
+      // upload bytes. Everything else above is display-only metadata.
+      rawFile: file,
     }
     set((state) => ({
       datasets: [...state.datasets, dataset],
@@ -100,7 +103,7 @@ export const useAppStore = create((set, get) => ({
 
     try {
       const result = await runAnalysisRequest({
-        file: activeFile,
+        file: activeFile.rawFile,
         query,
         // onStep lets the UI reveal the execution trace one line at a time,
         // instead of dumping the whole trace on screen at once.
